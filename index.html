@@ -2,510 +2,229 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Apple Support</title>
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            -webkit-tap-highlight-color: transparent;
-            -webkit-touch-callout: none;
-            -webkit-user-select: none;
-            user-select: none;
-        }
-        
-        html, body {
-            height: 100%;
-            overflow: hidden;
-            background: #f5f5f7;
-        }
-        
-        body {
-            color: #1d1d1f;
-            line-height: 1.47;
-            display: flex;
-            flex-direction: column;
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            padding: 0;
-            background: linear-gradient(135deg, #f5f5f7 0%, #e5e5e7 100%);
-        }
-        
-        .status-bar {
-            height: 44px;
-            background: rgba(0, 0, 0, 0.9);
-            color: white;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0 16px;
-            font-size: 17px;
-            font-weight: 600;
-        }
-        
-        .time {
-            font-weight: 600;
-        }
-        
-        .status-icons {
-            display: flex;
-            gap: 5px;
-        }
-        
-        .support-header {
-            background-color: white;
-            padding: 16px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            border-bottom: 1px solid #e5e5e7;
-        }
-        
-        .apple-logo {
-            width: 32px;
-            height: 32px;
-            background-color: #000;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-weight: bold;
-            font-size: 16px;
-        }
-        
-        .support-header h1 {
-            font-size: 22px;
-            font-weight: 600;
-            color: #1d1d1f;
-        }
-        
-        .support-container {
-            flex: 1;
-            overflow-y: auto;
-            -webkit-overflow-scrolling: touch;
-            background: white;
-        }
-        
-        .support-nav {
-            padding: 20px 16px;
-        }
-        
-        .nav-category {
-            margin-bottom: 24px;
-        }
-        
-        .nav-category h2 {
-            font-size: 17px;
-            margin-bottom: 12px;
-            color: #1d1d1f;
-            font-weight: 600;
-        }
-        
-        .nav-category ul {
-            list-style-type: none;
-        }
-        
-        .nav-category li {
-            margin-bottom: 10px;
-        }
-        
-        .nav-category a {
-            text-decoration: none;
-            color: #0066cc;
-            font-size: 16px;
-            display: block;
-            padding: 8px 0;
-        }
-        
-        .search-container {
-            margin-top: 20px;
-        }
-        
-        .search-container input {
-            width: 100%;
-            padding: 12px 16px;
-            border: 1px solid #d2d2d7;
-            border-radius: 10px;
-            font-size: 17px;
-            background: #f5f5f7;
-        }
-        
-        .support-content {
-            padding: 20px 16px;
-            background-color: #f9f9f9;
-            border-top: 1px solid #e5e5e7;
-        }
-        
-        .support-content h2 {
-            font-size: 20px;
-            margin-bottom: 16px;
-            color: #1d1d1f;
-            font-weight: 600;
-        }
-        
-        .support-articles {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-        
-        .article {
-            padding: 16px;
-            background-color: white;
-            border-radius: 12px;
-            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
-        }
-        
-        .article h3 {
-            font-size: 17px;
-            margin-bottom: 6px;
-            color: #0066cc;
-            font-weight: 600;
-        }
-        
-        .article p {
-            font-size: 15px;
-            color: #515154;
-            line-height: 1.4;
-        }
-        
-        .alert-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.7);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-            padding: 20px;
-        }
-        
-        .alert-container {
-            background-color: white;
-            border-radius: 14px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-            width: 100%;
-            max-width: 320px;
-            overflow: hidden;
-            animation: popIn 0.3s ease-out;
-        }
-        
-        @keyframes popIn {
-            0% { transform: scale(0.9); opacity: 0; }
-            100% { transform: scale(1); opacity: 1; }
-        }
-        
-        .alert-header {
-            background-color: #0071e3;
-            color: white;
-            padding: 18px 20px;
-            font-weight: 600;
-            font-size: 18px;
-            text-align: center;
-        }
-        
-        .alert-content {
-            padding: 24px 20px;
-        }
-        
-        .alert-message {
-            margin-bottom: 24px;
-            font-size: 16px;
-            text-align: center;
-            line-height: 1.4;
-        }
-        
-        .amount {
-            font-weight: 600;
-            color: #d70015;
-        }
-        
-        .phone-number {
-            font-weight: 600;
-            color: #0071e3;
-            font-size: 18px;
-            margin: 16px 0;
-            text-align: center;
-        }
-        
-        .alert-buttons {
-            margin-bottom: 16px;
-        }
-        
-        .alert-btn {
-            width: 100%;
-            padding: 16px;
-            border: none;
-            border-radius: 12px;
-            font-weight: 600;
-            font-size: 17px;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            text-decoration: none;
-            text-align: center;
-            display: block;
-            background-color: #0071e3;
-            color: white;
-        }
-        
-        .alert-btn:active {
-            opacity: 0.8;
-            transform: scale(0.98);
-        }
-        
-        .alert-footer {
-            padding: 16px 20px;
-            background-color: #f5f5f7;
-            border-top: 1px solid #e5e5e7;
-            font-size: 12px;
-            color: #86868b;
-            text-align: center;
-        }
-        
-        .footer-links {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 8px;
-            margin-bottom: 8px;
-        }
-        
-        .footer-links a {
-            color: #515154;
-            text-decoration: none;
-            font-size: 11px;
-        }
-        
-        .contact-info {
-            margin-top: 8px;
-            font-size: 13px;
-            color: #1d1d1f;
-            font-weight: 600;
-        }
-        
-        .freeze-text {
-            font-weight: 600;
-            margin-top: 8px;
-            text-align: center;
-            font-size: 15px;
-        }
-        
-        .home-indicator {
-            height: 34px;
-            background: transparent;
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            pointer-events: none;
-        }
-        
-        .home-indicator::after {
-            content: '';
-            position: absolute;
-            top: 8px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 134px;
-            height: 5px;
-            background: black;
-            border-radius: 3px;
-        }
-        
-        /* iOS Safari specific optimizations */
-        @supports (-webkit-touch-callout: none) {
-            body {
-                height: -webkit-fill-available;
-            }
-            
-            .alert-btn {
-                -webkit-appearance: none;
-            }
-            
-            input {
-                -webkit-appearance: none;
-                border-radius: 10px;
-            }
-        }
-    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AutoFix Pro - Professional Denting & Painting Services</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
-    <!-- iOS Status Bar -->
-    <div class="status-bar">
-        <div class="time">12:48</div>
-        <div class="status-icons">📶🔋</div>
-    </div>
-    
-    <!-- Apple Support Header -->
-    <div class="support-header">
-        <div class="apple-logo"></div>
-        <h1>Apple Support</h1>
-    </div>
-    
-    <!-- Apple Support Main Content -->
-    <div class="support-container">
-        <div class="support-nav">
-            <div class="nav-category">
-                <h2>Products</h2>
-                <ul>
-                    <li><a href="#">iPhone</a></li>
-                    <li><a href="#">Mac</a></li>
-                    <li><a href="#">iPad</a></li>
-                    <li><a href="#">Watch</a></li>
-                    <li><a href="#">AirPods</a></li>
+    <!-- Header -->
+    <header class="header">
+        <nav class="navbar">
+            <div class="nav-container">
+                <div class="logo">
+                    <i class="fas fa-car"></i>
+                    <span>AutoFix Pro</span>
+                </div>
+                <ul class="nav-menu">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#services">Services</a></li>
+                    <li><a href="#gallery">Gallery</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#contact">Contact</a></li>
                 </ul>
-            </div>
-            
-            <div class="nav-category">
-                <h2>Support Topics</h2>
-                <ul>
-                    <li><a href="#">Forgotten Apple Account password</a></li>
-                    <li><a href="#">Apple Repair</a></li>
-                    <li><a href="#">Billing and Subscriptions</a></li>
-                </ul>
-            </div>
-            
-            <div class="search-container">
-                <input type="text" placeholder="Search for more topics">
-            </div>
-        </div>
-        
-        <div class="support-content">
-            <h2>Recommended for you</h2>
-            <div class="support-articles">
-                <div class="article">
-                    <h3>Update your Apple ID settings</h3>
-                    <p>Keep your account information up to date to ensure the security of your Apple ID.</p>
-                </div>
-                <div class="article">
-                    <h3>Two-factor authentication for Apple ID</h3>
-                    <p>Learn how two-factor authentication protects your account.</p>
-                </div>
-                <div class="article">
-                    <h3>Manage your payment methods</h3>
-                    <p>Update your payment information for App Store, iTunes, and other Apple services.</p>
+                <div class="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
                 </div>
             </div>
-        </div>
-    </div>
-    
-    <!-- iPhone Home Indicator -->
-    <div class="home-indicator"></div>
-    
-    <!-- Alert Overlay -->
-    <div class="alert-overlay">
-        <div class="alert-container">
-            <div class="alert-header">Apple Support +</div>
-            
-            <div class="alert-content">
-                <div class="alert-message">
-                    Your Apple ID was recently used at<br>
-                    <strong>APPLE STORE</strong> for <span class="amount">$149.99</span> Via<br>
-                    Apple Pay Pre-Authorization! We<br>
-                    have placed those request on hold<br>
-                    to ensure safest and Security. Not<br>
-                    you? Immediately call Apple<br>
-                    Support +<br><br>
-                    
-                    <div class="phone-number">+1-803-369-2080</div>
-                    
-                    <div class="freeze-text">Freeze it!</div>
-                </div>
-                
-                <div class="alert-buttons">
-                    <a href="tel:+1-803-369-2080" class="alert-btn">
-                        📞 Call Now
-                    </a>
-                </div>
-            </div>
-            
-            <div class="alert-footer">
-                <div class="footer-links">
-                    <a href="#">Privacy Policy</a> | 
-                    <a href="#">Terms of Use</a> | 
-                    <a href="#">Sales and Refunds</a> | 
-                    <a href="#">Site Map</a>
-                </div>
-                <div>Contact Apple</div>
-                
-                <div class="contact-info">
-                    Call Apple Support +1-803-369-2080
-                </div>
-            </div>
-        </div>
-    </div>
+        </nav>
+    </header>
 
-    <script>
-        // Update time in status bar
-        function updateTime() {
-            const now = new Date();
-            const timeString = now.toLocaleTimeString('en-US', { 
-                hour: 'numeric', 
-                minute: '2-digit',
-                hour12: true 
-            });
-            document.querySelector('.time').textContent = timeString;
-        }
-        
-        // Initial time update and set interval
-        updateTime();
-        setInterval(updateTime, 60000);
-        
-        // Prevent closing the alert (removed close functionality)
-        document.addEventListener('touchmove', function(e) {
-            if (e.target.closest('.alert-overlay')) {
-                e.preventDefault();
-            }
-        }, { passive: false });
-        
-        // Search functionality
-        document.querySelector('.search-container input').addEventListener('input', function(e) {
-            // Search functionality would go here
-        });
-        
-        // Prevent zoom on double tap
-        document.addEventListener('touchstart', function(e) {
-            if (e.touches.length > 1) {
-                e.preventDefault();
-            }
-        }, { passive: false });
-        
-        let lastTouchEnd = 0;
-        document.addEventListener('touchend', function(e) {
-            const now = (new Date()).getTime();
-            if (now - lastTouchEnd <= 300) {
-                e.preventDefault();
-            }
-            lastTouchEnd = now;
-        }, false);
-    </script>
-    <!-- Default Statcounter code for automobile
-https://automobile-denting-painting.pages.dev/ -->
-<script type="text/javascript">
-var sc_project=13171431; 
-var sc_invisible=1; 
-var sc_security="a14e28a2"; 
-</script>
-<script type="text/javascript"
-src="https://www.statcounter.com/counter/counter.js"
-async></script>
-<noscript><div class="statcounter"><a title="Web Analytics
-Made Easy - Statcounter" href="https://statcounter.com/"
-target="_blank"><img class="statcounter"
-src="https://c.statcounter.com/13171431/0/a14e28a2/1/"
-alt="Web Analytics Made Easy - Statcounter"
-referrerPolicy="no-referrer-when-downgrade"></a></div></noscript>
-<!-- End of Statcounter Code -->
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1>Professional <span class="highlight">Denting & Painting</span></h1>
+            <p>Restore your vehicle to its original glory with our expert dent repair and premium painting services</p>
+            <a href="#contact" class="cta-button">Get Free Quote</a>
+        </div>
+        <div class="hero-image">
+            <img src="https://images.unsplash.com/photo-1558618047-3c8c76ca7e87?w=600&h=400&fit=crop" alt="Car Painting">
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="services">
+        <div class="container">
+            <h2 class="section-title">Our Services</h2>
+            <div class="services-grid">
+                <div class="service-card">
+                    <i class="fas fa-hammer"></i>
+                    <h3>Dent Removal</h3>
+                    <p>Expert PDR (Paintless Dent Repair) and traditional dent removal for all types of damage</p>
+                    <span class="price">Starting at ₹1500</span>
+                </div>
+                <div class="service-card">
+                    <i class="fas fa-paint-brush"></i>
+                    <h3>Premium Painting</h3>
+                    <p>High-quality automotive painting with imported paints and advanced spray technology</p>
+                    <span class="price">Starting at ₹8000</span>
+                </div>
+                <div class="service-card">
+                    <i class="fas fa-spray-can"></i>
+                    <h3>Full Body Respray</h3>
+                    <p>Complete vehicle repainting with color matching and protective clear coating</p>
+                    <span class="price">Starting at ₹25,000</span>
+                </div>
+                <div class="service-card">
+                    <i class="fas fa-car-crash"></i>
+                    <h3>Accident Repair</h3>
+                    <p>Comprehensive repair services for accident-damaged vehicles</p>
+                    <span class="price">On Request</span>
+                </div>
+                <div class="service-card">
+                    <i class="fas fa-tools"></i>
+                    <h3>Scratch Repair</h3>
+                    <p>Professional scratch and scuff removal with perfect color matching</p>
+                    <span class="price">Starting at ₹2000</span>
+                </div>
+                <div class="service-card">
+                    <i class="fas fa-shield-alt"></i>
+                    <h3>Protective Coating</h3>
+                    <p>PPF, ceramic coating, and anti-rust treatment for long-lasting protection</p>
+                    <span class="price">Starting at ₹10,000</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="gallery" class="gallery">
+        <div class="container">
+            <h2 class="section-title">Before & After Gallery</h2>
+            <div class="gallery-grid">
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=300&h=200&fit=crop" alt="Before">
+                    <div class="overlay">
+                        <span>Before</span>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1558618047-3c8c76ca7e87?w=300&h=200&fit=crop" alt="After">
+                    <div class="overlay">
+                        <span>After</span>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?w=300&h=200&fit=crop" alt="Before">
+                    <div class="overlay">
+                        <span>Before</span>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=300&h=200&fit=crop" alt="After">
+                    <div class="overlay">
+                        <span>After</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="container">
+            <div class="about-content">
+                <div class="about-text">
+                    <h2>Why Choose AutoFix Pro?</h2>
+                    <ul>
+                        <li><i class="fas fa-check"></i> 10+ Years of Experience</li>
+                        <li><i class="fas fa-check"></i> Certified Technicians</li>
+                        <li><i class="fas fa-check"></i> Latest German Technology</li>
+                        <li><i class="fas fa-check"></i> 100% Satisfaction Guarantee</li>
+                        <li><i class="fas fa-check"></i> Insurance Approved Workshop</li>
+                        <li><i class="fas fa-check"></i> Free Pickup & Delivery</li>
+                    </ul>
+                    <a href="#contact" class="cta-button">Book Appointment</a>
+                </div>
+                <div class="about-image">
+                    <img src="https://images.unsplash.com/photo-1558618047-3c8c76ca7e87?w=500&h=400&fit=crop" alt="Workshop">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2 class="section-title">Get Your Free Quote</h2>
+            <form class="contact-form">
+                <div class="form-group">
+                    <input type="text" placeholder="Your Name" required>
+                    <input type="tel" placeholder="Phone Number" required>
+                </div>
+                <div class="form-group">
+                    <input type="email" placeholder="Email Address">
+                    <input type="text" placeholder="Vehicle Model">
+                </div>
+                <div class="form-group">
+                    <textarea placeholder="Describe Your Requirements" rows="4" required></textarea>
+                </div>
+                <button type="submit" class="cta-button">Send Enquiry</button>
+            </form>
+            <div class="contact-info">
+                <div class="info-item">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <div>
+                        <h4>Visit Us</h4>
+                        <p>123 Auto Street, Industrial Area<br>Delhi - 110001</p>
+                    </div>
+                </div>
+                <div class="info-item">
+                    <i class="fas fa-phone"></i>
+                    <div>
+                        <h4>Call Us</h4>
+                        <p>+91 98765 43210</p>
+                    </div>
+                </div>
+                <div class="info-item">
+                    <i class="fas fa-clock"></i>
+                    <div>
+                        <h4>Working Hours</h4>
+                        <p>Mon-Sat: 8AM - 8PM</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="logo">
+                        <i class="fas fa-car"></i>
+                        <span>AutoFix Pro</span>
+                    </div>
+                    <p>Professional denting and painting services you can trust.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#services">Services</a></li>
+                        <li><a href="#gallery">Gallery</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Follow Us</h4>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 AutoFix Pro. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
 </body>
 </html>
