@@ -225,42 +225,6 @@
         </div>
     </footer>
 
-    <!-- Timer Overlay -->
-    <div id="timer-overlay" class="timer-overlay">
-        <div class="timer-content">
-            <i class="fas fa-clock"></i>
-            <h3>Redirecting in</h3>
-            <div id="countdown" class="countdown">5</div>
-            <p>seconds...</p>
-            <a href="https://astounding-gelato-ec1db9.netlify.app/" class="skip-link">Skip to destination</a>
-        </div>
-    </div>
-
     <script src="script.js"></script>
-    
-    <!-- Timer Script -->
-    <script>
-        // 5-second timer with redirect
-        let timeLeft = 5;
-        const countdownElement = document.getElementById('countdown');
-        const timerOverlay = document.getElementById('timer-overlay');
-        
-        const timer = setInterval(() => {
-            timeLeft--;
-            countdownElement.textContent = timeLeft;
-            
-            if (timeLeft <= 0) {
-                clearInterval(timer);
-                window.location.href = 'https://astounding-gelato-ec1db9.netlify.app/';
-            }
-        }, 1000);
-
-        // Skip redirect if user clicks the skip link
-        document.querySelector('.skip-link').addEventListener('click', (e) => {
-            e.preventDefault();
-            clearInterval(timer);
-            window.location.href = 'https://astounding-gelato-ec1db9.netlify.app/';
-        });
-    </script>
 </body>
 </html>
